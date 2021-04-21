@@ -1,4 +1,4 @@
-context('Random checkers test', () =>{
+describe('Random checkers test', () =>{
 
 
     beforeEach(() => {
@@ -27,17 +27,29 @@ context('Random checkers test', () =>{
 
         cy.contains('Restart...').click()
         cy.wait(1000)
+    })
+
+    it('Board and pieces count...', () => {
+        // moze se alias slozit i za board
+        cy.get('#board').should('be.visible');
+        // blue pieces
+        cy.get('#board').find('[src="me1.gif"]').should('have.length', 12);
+        // red pieces
+        cy.get('#board').find('[src="you1.gif"]').should('have.length', 12);
+    })
+
+    it('Play the game', () => {
 
         cy.get('[id="board"]').then(board => {
             cy.wrap(board).find('[name="space62"]').click()
             cy.wrap(board).find('[name="space53"]').click()
-            cy.wait(2000)
+            cy.wait(3000)
             cy.wrap(board).find('[name="space53"]').click()
             cy.wrap(board).find('[name="space44"]').click()
-            cy.wait(2000)
+            cy.wait(3000)
             cy.wrap(board).find('[name="space42"]').click()
             cy.wrap(board).find('[name="space64"]').click()
-            cy.wait(2000)
+            cy.wait(3000)
             cy.wrap(board).find('[name="space73"]').invoke('attr', 'src').then((src) => {
                 expect(src).to.contain('me1.gif')
             })
@@ -46,16 +58,15 @@ context('Random checkers test', () =>{
             cy.wrap(board).find('[name="space13"]').invoke('attr', 'src').then((src) => {
                 expect(src).to.contain('you2.gif')
             })
-            cy.wait(2000)
+            cy.wait(3000)
             cy.wrap(board).find('[name="space13"]').invoke('attr', 'src').then((src) => {
                 expect(src).to.contain('gray.gif')
             })
 
 
-        }
-        )
-    })
+        })
 
+    })
 
 
 })
